@@ -55,6 +55,19 @@ a:link {
     top: 4px
     ;
 }
+
+
+.weather-temperature .units .active{
+    color: #202124;
+    cursor: default;
+
+}
+
+.weather-temperature.units.active:hover {
+    text-decoration: none;
+
+}
+
 #temperature {
 font-size: 64px;
 font-weight: 400;

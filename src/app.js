@@ -28,53 +28,91 @@ return `${weekDay}, ${hours}:${minutes}`
 
 function displayTemperature (response){
 
+    
+
     let h1 = document.querySelector(".cityName");
-    h1.innerHTML= `${response.data.city}`;
-
     let temperature = document.querySelector("#temperature");
-    temperature.innerHTML= Math.round(response.data.temperature.current);
-
     let description = document.querySelector("#description");
-    description.innerHTML= `${response.data.condition.description}`;
-
-    let humidity =document.querySelector("#humidity");
-    humidity.innerHTML=`${response.data.temperature.humidity}`;
-
+    let humidity =document.querySelector("#humidity");  
     let wind =document.querySelector("#wind");
-    wind.innerHTML=`${response.data.wind.speed}`;
-
-    let feels_like =document.querySelector("#feels_like");
-    feels_like.innerHTML=Math.round(response.data.temperature.feels_like);
-
+    let pressure =document.querySelector("#pressure");
     let date =document.querySelector("#date");
+    let icon =document.querySelector("#icon");
+
+ 
+    CelsiusTemperature =response.data.temperature.current;
+
+
+    h1.innerHTML= `${response.data.city}`;  
+    temperature.innerHTML= Math.round(CelsiusTemperature);   
+    description.innerHTML= `${response.data.condition.description}`;   
+    humidity.innerHTML=`${response.data.temperature.humidity}`;    
+    wind.innerHTML=`${response.data.wind.speed}`;   
+    pressure.innerHTML=Math.round(response.data.temperature.pressure);  
     date.innerHTML=displayTime (response.data.time*1000);
 
 
-    let icon =document.querySelector("#icon");
+    
     icon.setAttribute("src",response.data.condition.icon_url);
-    icon.setAttribute("alt",response.data.condition.description);
+    icon.setAttribute("alt",response.data.condition.description);   
+    
+
+   
 }
 
 
-function search (event){
-    event.preventDefault()
-let city = document.querySelector("#city-input");
-let cityOutput = document.querySelector(".cityName");
-
-
-cityOutput.innerHTML=city.value;
+function search (city){
 let apiKey ="eb35dd952a431a4636oae87ff0c619et"
-let units = "metric"
-let apiUrl =`https://api.shecodes.io/weather/v1/current?query=${city.value}&key=${apiKey}&units=${units}`
+let unitsC = "metric"
+let apiUrl =`https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${unitsC}`
 axios.get(apiUrl).then(displayTemperature);
 axios.get(apiUrl).then(displayTime);
+
+
 }
 
+
+
+
+function handleSubmit (event){
+ event.preventDefault();
+ let city = document.querySelector("#city-input");
+ search (city.value);
+
+}
+
+function displayFahrenheit (event){
+    event.preventDefault()
+let temperature = document.querySelector("#temperature");
+    FarenheitTemperature= (CelsiusTemperature*9)/5+32;
+ temperature.innerHTML= Math.round(FarenheitTemperature);
+CButton.classList.remove("active");
+FButton.classList.add("active");
+}
+
+function displayCelsius (event){
+    event.preventDefault()
+let temperature = document.querySelector("#temperature");
+ temperature.innerHTML= Math.round(CelsiusTemperature);
+CButton.classList.add("active");
+FButton.classList.remove("active");
+}
+
+
+
+
+
+let CelsiusTemperature = null
+
 let form = document.querySelector("#search-form");
-form.addEventListener("submit",search);
+form.addEventListener("submit",handleSubmit);
 
 
 
+let FButton = document.querySelector("#f-button");
+FButton.addEventListener("click",displayFahrenheit);
 
+let CButton = document.querySelector("#c-button");
+CButton.addEventListener("click",displayCelsius);
 
-
+search ("paris");
