@@ -1,8 +1,3 @@
-let apiKey ="eb35dd952a431a4636oae87ff0c619et"
-let units = "metric"
-let city = "New York"
-let apiUrl =`https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`
-
 
 
 
@@ -58,23 +53,28 @@ function displayTemperature (response){
     let icon =document.querySelector("#icon");
     icon.setAttribute("src",response.data.condition.icon_url);
     icon.setAttribute("alt",response.data.condition.description);
-
-    //console.log(`${response.data.condition.icon_url}`);
-   // let icon_jpg =get("#icon.src");
-    //icon_jpg.innerHTML=`${response.data.condition.icon_url}`;
-
 }
 
 
+function search (event){
+    event.preventDefault()
+let city = document.querySelector("#city-input");
+let cityOutput = document.querySelector(".cityName");
 
 
-
-//function img_info(response) {
-//return `${response.data.condition.icon_url}`
-//   }
-//console.log (img_info)
-//document.getElementById("icon").src=img_info()
-
-
+cityOutput.innerHTML=city.value;
+let apiKey ="eb35dd952a431a4636oae87ff0c619et"
+let units = "metric"
+let apiUrl =`https://api.shecodes.io/weather/v1/current?query=${city.value}&key=${apiKey}&units=${units}`
 axios.get(apiUrl).then(displayTemperature);
 axios.get(apiUrl).then(displayTime);
+}
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit",search);
+
+
+
+
+
+
