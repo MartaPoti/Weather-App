@@ -55,7 +55,9 @@ function displayTemperature (response){
     date.innerHTML=displayTime (response.data.time*1000);
 
 
-    //let icon_jpg =get("#icon.src");
+    let icon =document.querySelector("#icon");
+    icon.setAttribute("src",response.data.condition.icon_url);
+    icon.setAttribute("alt",response.data.condition.description);
 
     //console.log(`${response.data.condition.icon_url}`);
    // let icon_jpg =get("#icon.src");
