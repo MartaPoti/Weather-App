@@ -58,7 +58,17 @@ function displayTemperature (response){
     
 
    
+};
+
+function formatDate(timestamp) {
+let date = new Date(timestamp*1000);
+let day = date.getDay();
+console.log(day)
+let days= ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+return days[day];
 }
+
 
 function getForecast (city) {
 let apiKey="eb35dd952a431a4636oae87ff0c619et"
@@ -108,27 +118,28 @@ FButton.classList.remove("active");
 }
 
 function displayForecast (response){
-    console.log(response.data.daily);
+    
+    let forecast = response.data.daily;
+    console.log(forecast)
     let forecastElement = document.querySelector("#forecast")
      let forecastHTML="";
     forecastHTML=forecastHTML + `<div class="row">`
-    let days=["Tue","Wed","Thu","Fri","Sat","Sun"]
-    days.forEach(function(day) {
-   
+    forecast.forEach(function(forecastDay, index) {
+   if (index>0 && index<7) 
    forecastHTML=forecastHTML + `
     
     
               <div class="col-2">
-                <div class="forecast-weekday">${day}</div>
+                <div class="forecast-weekday">${formatDate(forecastDay.time)}</div>
                 <img
-                  src="https://ssl.gstatic.com/onebox/weather/48/snow_s_rain.png"
-                  alt="cloudy"
+                  src=${forecastDay.condition.icon_url}
+                  alt=${forecastDay.condition.icon}
                   id="forecast-icon"
                   width="48"
                 />
                 <div>
-                  <span class="forecast-temp-max">18°</span>
-                  <span class="forecast-temp-min">12°</span>
+                  <span class="forecast-temp-max">${Math.round(forecastDay.temperature.maximum)}</span>
+                  <span class="forecast-temp-min">${Math.round(forecastDay.temperature.minimum)}</span>
                 </div>
               </div>
             
