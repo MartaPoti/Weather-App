@@ -63,7 +63,6 @@ function displayTemperature (response){
 function formatDate(timestamp) {
 let date = new Date(timestamp*1000);
 let day = date.getDay();
-console.log(day)
 let days= ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
 return days[day];
@@ -103,7 +102,6 @@ function handleSubmit (event){
 function displayForecast (response){
     
     let forecast = response.data.daily;
-    console.log(forecast)
     let forecastElement = document.querySelector("#forecast")
      let forecastHTML="";
     forecastHTML=forecastHTML + `<div class="row">`
@@ -145,5 +143,5 @@ form.addEventListener("submit",handleSubmit);
 
 
 
-search ("paris");
-getForecast("paris")
+search ("Hel");
+getForecast("Hel")
