@@ -98,6 +98,39 @@ CButton.classList.add("active");
 FButton.classList.remove("active");
 }
 
+function displayForecast (){
+    let forecastElement = document.querySelector("#forecast")
+     let forecastHTML="";
+    forecastHTML=forecastHTML + `<div class="row">`
+    let days=["Tue","Wed","Thu","Fri","Sat","Sun"]
+    days.forEach(function(day) {
+   
+   forecastHTML=forecastHTML + `
+    
+    
+              <div class="col-2">
+                <div class="forecast-weekday">${day}</div>
+                <img
+                  src="https://ssl.gstatic.com/onebox/weather/48/snow_s_rain.png"
+                  alt="cloudy"
+                  id="forecast-icon"
+                  width="48"
+                />
+                <div>
+                  <span class="forecast-temp-max">18°</span>
+                  <span class="forecast-temp-min">12°</span>
+                </div>
+              </div>
+            
+            `
+
+   
+    });
+
+forecastHTML=forecastHTML + `</div>`
+forecastElement.innerHTML= forecastHTML
+
+};
 
 
 
@@ -115,4 +148,5 @@ FButton.addEventListener("click",displayFahrenheit);
 let CButton = document.querySelector("#c-button");
 CButton.addEventListener("click",displayCelsius);
 
+displayForecast();
 search ("paris");
