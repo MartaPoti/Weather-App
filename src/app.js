@@ -81,8 +81,7 @@ axios.get(apiUrl).then(displayForecast);
 
 function search (city){
 let apiKey ="eb35dd952a431a4636oae87ff0c619et"
-let unitsC = "metric"
-let apiUrl =`https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${unitsC}`
+let apiUrl =`https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`
 axios.get(apiUrl).then(displayTemperature);
 axios.get(apiUrl).then(displayTime);
 
@@ -100,22 +99,6 @@ function handleSubmit (event){
 
 }
 
-function displayFahrenheit (event){
-    event.preventDefault()
-let temperature = document.querySelector("#temperature");
-    FarenheitTemperature= (CelsiusTemperature*9)/5+32;
- temperature.innerHTML= Math.round(FarenheitTemperature);
-CButton.classList.remove("active");
-FButton.classList.add("active");
-}
-
-function displayCelsius (event){
-    event.preventDefault()
-let temperature = document.querySelector("#temperature");
- temperature.innerHTML= Math.round(CelsiusTemperature);
-CButton.classList.add("active");
-FButton.classList.remove("active");
-}
 
 function displayForecast (response){
     
@@ -156,19 +139,10 @@ forecastElement.innerHTML= forecastHTML
 
 
 
-
-let CelsiusTemperature = null
-
 let form = document.querySelector("#search-form");
 form.addEventListener("submit",handleSubmit);
 
 
-
-let FButton = document.querySelector("#f-button");
-FButton.addEventListener("click",displayFahrenheit);
-
-let CButton = document.querySelector("#c-button");
-CButton.addEventListener("click",displayCelsius);
 
 
 search ("paris");
