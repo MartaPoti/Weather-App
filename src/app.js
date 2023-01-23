@@ -60,6 +60,14 @@ function displayTemperature (response){
    
 }
 
+function getForecast (city) {
+let apiKey="eb35dd952a431a4636oae87ff0c619et"
+let apiUrl =`https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`
+axios.get(apiUrl).then(displayForecast);
+
+
+}
+
 
 function search (city){
 let apiKey ="eb35dd952a431a4636oae87ff0c619et"
@@ -78,6 +86,7 @@ function handleSubmit (event){
  event.preventDefault();
  let city = document.querySelector("#city-input");
  search (city.value);
+ getForecast(city.value);
 
 }
 
@@ -98,7 +107,8 @@ CButton.classList.add("active");
 FButton.classList.remove("active");
 }
 
-function displayForecast (){
+function displayForecast (response){
+    console.log(response.data.daily);
     let forecastElement = document.querySelector("#forecast")
      let forecastHTML="";
     forecastHTML=forecastHTML + `<div class="row">`
@@ -127,6 +137,7 @@ function displayForecast (){
    
     });
 
+    
 forecastHTML=forecastHTML + `</div>`
 forecastElement.innerHTML= forecastHTML
 
@@ -148,5 +159,6 @@ FButton.addEventListener("click",displayFahrenheit);
 let CButton = document.querySelector("#c-button");
 CButton.addEventListener("click",displayCelsius);
 
-displayForecast();
+
 search ("paris");
+getForecast("paris")
